@@ -102,9 +102,6 @@ SingleFileBlockManager::SingleFileBlockManager(DatabaseInstance &db, string path
 			flags |= FileFlags::FILE_FLAGS_FILE_CREATE;
 		}
 	}
-	if (use_direct_io) {
-		flags |= FileFlags::FILE_FLAGS_DIRECT_IO;
-	}
 	// open the RDBMS handle
 	auto &fs = FileSystem::GetFileSystem(db);
 	handle = fs.OpenFile(path, flags, lock);
@@ -182,6 +179,11 @@ SingleFileBlockManager::SingleFileBlockManager(DatabaseInstance &db, string path
 			Initialize(h2);
 		}
 		LoadFreeList();
+	}
+	if (use_direct_io) {
+		flags |= FileFlags::FILE_FLAGS_DIRECT_IO;
+		handle->Close();
+		handle = fs.OpenFile(path, flags, lock);
 	}
 }
 

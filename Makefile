@@ -5,6 +5,8 @@ opt: release
 unit: unittest
 imdb: third_party/imdb/data
 
+GEN=ninja
+
 GENERATOR=
 FORCE_COLOR=
 WARNINGS_AS_ERRORS=

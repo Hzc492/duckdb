@@ -79,7 +79,10 @@ void StorageManager::Initialize() {
 	con.Commit();
 
 	// create or load the database from disk, if not in-memory mode
+	std::chrono::high_resolution_clock::time_point _T1 = std::chrono::high_resolution_clock::now();
 	LoadDatabase();
+	std::chrono::high_resolution_clock::time_point _T2 = std::chrono::high_resolution_clock::now();
+	printf("LoadDatabase() takes %f seconds\n", std::chrono::duration<double, std::ratio<1, 1>>(_T2 - _T1).count());
 }
 
 ///////////////////////////////////////////////////////////////////////////
